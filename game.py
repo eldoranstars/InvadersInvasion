@@ -5,9 +5,11 @@ from stats import GameStats
 pygame.init()
 pygame.mouse.set_visible(False)
 pygame.display.set_caption("Invaders Invasion")
+clock = pygame.time.Clock()
 stats = GameStats()
 
 while True:
+    clock.tick(60)
     if pygame.joystick.get_count():
         joystick = pygame.joystick.Joystick(0)
     gf.check_events(stats, joystick='')

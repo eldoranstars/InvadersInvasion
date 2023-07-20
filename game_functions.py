@@ -1,4 +1,5 @@
 import sys
+sys.path.append('rects')
 import pygame
 import random
 from time import sleep
@@ -171,10 +172,9 @@ def update_tusks(stats):
 
 def update_bosses(stats):
     # Обновить расположение объектов на экране.
-    # for boss in settings.bosses:
-    #     boss.update()
-    #     if boss.life_left < 0:
-        if settings.score > 20:
+    for boss in settings.bosses:
+        boss.update()
+        if boss.life_left < 0:
             sleep(0.6)
             stats.final_active = True
             settings.intro_sound.stop()
@@ -187,8 +187,8 @@ def update_bosses(stats):
                 settings.record = settings.score
                 record.update_text(settings.record)
             score.update_text(settings.score)
-        # if overlap(ship, boss):
-        #     reset_after_collision(stats)
+        if overlap(ship, boss):
+            reset_after_collision(stats)
 
 def update_balls(stats):
     # Обновить расположение объектов на экране.

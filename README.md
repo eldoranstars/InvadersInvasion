@@ -27,6 +27,7 @@
 - m -- music while pause
 - esc -- quit while pause
 
-##### Compile
-pyinstaller -F --add-data "media/*:media/" --icon=favicon.ico game.py # linux
-pyinstaller -F --add-data "media\*;media\" --icon=favicon.ico game.py # windows
+##### compile linux
+    pyinstaller -F --add-data "media/*:media/" --add-data "rects/*:." --icon=favicon.ico game.py --name InvadersInvasion
+##### compile windows
+    pyinstaller -F --add-data "media\*;media\" --add-data "rects\*;." --icon=favicon.ico game.py --name InvadersInvasion

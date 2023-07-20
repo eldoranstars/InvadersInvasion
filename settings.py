@@ -50,7 +50,7 @@ class Settings():
         self.asteroid_pink = pygame.image.load(resource_path('media/asteroid-pink.png'))
         self.asteroid_grey = pygame.image.load(resource_path('media/asteroid-grey.png'))
         self.asteroid_blue = pygame.image.load(resource_path('media/asteroid-blue.png'))
-        self.screen_surface = pygame.display.set_mode((self.screen_width, self.screen_height), pygame.SCALED, vsync=1)
+        self.screen_surface = pygame.display.set_mode((self.screen_width, self.screen_height), pygame.SCALED)
         self.bullet_surface = pygame.Surface((self.bullet_width, self.bullet_height))
         # Параметры аудио
         self.bullet_sound = pygame.mixer.Sound(resource_path('media/bullet.mp3'))
@@ -117,6 +117,7 @@ class Settings():
         self.reload_bullet_time = self.reload_bullet_time_limit
         self.player_hit()
         self.outro_sound.stop()
+        self.intro_sound.stop()
         self.intro_sound.play(-1)
         # Титры
         self.messages = ['Producer:', 'eldoranstars', '', \
