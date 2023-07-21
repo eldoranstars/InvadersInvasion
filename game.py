@@ -5,6 +5,7 @@ from stats import GameStats
 pygame.init()
 pygame.mouse.set_visible(False)
 pygame.display.set_caption("Invaders Invasion")
+pygame.display.toggle_fullscreen()
 clock = pygame.time.Clock()
 stats = GameStats()
 
