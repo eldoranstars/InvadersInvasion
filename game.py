@@ -1,13 +1,13 @@
 import pygame
 import game_functions as gf
-from stats import GameStats
+import stats
 
 pygame.init()
 pygame.mouse.set_visible(False)
 pygame.display.set_caption("Invaders Invasion")
-pygame.display.toggle_fullscreen()
+# pygame.display.toggle_fullscreen()
 clock = pygame.time.Clock()
-stats = GameStats()
+stats = stats.GameStats()
 
 while True:
     clock.tick(60)
@@ -20,6 +20,7 @@ while True:
         gf.append_messages()
     if stats.game_active:
         gf.update_ship(stats, joystick='')
+        gf.update_fire(stats)
         gf.update_bosses(stats)
         gf.update_invaders(stats)
         gf.update_smalls(stats)

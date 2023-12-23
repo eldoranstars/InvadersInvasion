@@ -10,20 +10,22 @@ from bullet import Bullet
 from settings import Settings
 from screen import Screen
 from ship import Ship
+from fire import Fire
 from star import Star
 from text import Text
 from ammo import Ammo
 from boss import Boss
 
 settings = Settings()
-collision = settings.collision
 screen = Screen(settings)
 ship = Ship(screen, settings)
+fire = Fire(screen, settings)
 star = Star(screen, settings)
 pause = Text(screen, "PAUSE: Q", screen.rect.centerx, screen.rect.centery - 44)
 record = Text(screen, "PREVIOS RECORD: {:,}", screen.rect.centerx, screen.rect.centery - 22)
 score = Text(screen, "SCORE: {:,}", screen.rect.centerx, screen.rect.centery)
 buttons = [pause, record, score]
+collision = settings.collision
 
 def overlap(player, enemy):
     # Получаем пиксельную маску для обработки коллизий.
@@ -50,6 +52,7 @@ def check_events(stats, joystick):
     if not stats.game_active:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                pygame.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_m:
                 if stats.music_active:
@@ -68,6 +71,7 @@ def check_events(stats, joystick):
                     settings.new_game()
             if joystick:
                 if event.type == pygame.JOYBUTTONDOWN and joystick.get_button(6) == 1:
+                    pygame.quit()
                     sys.exit()
                 if event.type == pygame.JOYBUTTONDOWN and joystick.get_button(5) == 1:
                     if stats.music_active:
@@ -90,12 +94,16 @@ def update_ship(stats, joystick):
     key = pygame.key.get_pressed()
     if key[pygame.K_RIGHT] == 1 and ship.rect.right < settings.screen_width:
         ship.rect.centerx += settings.ship_sf
+        fire.rect.centerx += settings.fire_sf
     if key[pygame.K_LEFT] == 1 and ship.rect.left > 0:
         ship.rect.centerx -= settings.ship_sf
+        fire.rect.centerx -= settings.fire_sf
     if key[pygame.K_UP] == 1 and ship.rect.top > 0:
         ship.rect.centery -= settings.ship_sf
+        fire.rect.centery -= settings.fire_sf
     if key[pygame.K_DOWN] == 1 and ship.rect.bottom < settings.screen_height:
         ship.rect.centery += settings.ship_sf
+        fire.rect.centery += settings.fire_sf
     if key[pygame.K_SPACE] == 1 and settings.bullet_left > 0:
         settings.bullet_left -= 1
         bullet = Bullet(screen, settings, ship)
@@ -104,12 +112,16 @@ def update_ship(stats, joystick):
     if joystick:
         if joystick.get_axis(0) and joystick.get_axis(0) > 0.2 and ship.rect.right < settings.screen_width:
             ship.rect.centerx += settings.ship_sf
+            fire.rect.centerx += settings.fire_sf
         if joystick.get_axis(0) and joystick.get_axis(0) < -0.2 and ship.rect.left > 0:
             ship.rect.centerx -= settings.ship_sf
+            fire.rect.centerx -= settings.fire_sf
         if joystick.get_axis(1) and joystick.get_axis(1) < -0.2 and ship.rect.top > 0:
             ship.rect.centery -= settings.ship_sf
+            fire.rect.centery -= settings.fire_sf
         if joystick.get_axis(1) and joystick.get_axis(1) > 0.2 and ship.rect.bottom < settings.screen_height:
             ship.rect.centery += settings.ship_sf
+            fire.rect.centery += settings.fire_sf
         if joystick.get_axis(5) > 0.2 and settings.bullet_left > 0:
             settings.bullet_left -= 1
             bullet = Bullet(screen, settings, ship)
@@ -129,6 +141,11 @@ def update_ship(stats, joystick):
         if pygame.time.get_ticks() - settings.last_power_time > settings.reload_power_time:
             stats.power_active = False
             settings.reload_bullet_time = settings.reload_bullet_time_limit
+
+def update_fire(stats):
+    # Обновить расположение объектов на экране.
+    if not stats.final_active:
+        fire.update()
 
 def update_invaders(stats):
     # Обновить расположение объектов на экране.
@@ -279,6 +296,8 @@ def reset_after_collision(stats):
             settings.drop_stars.append(drop_star)
             ship.rect.centerx = screen.rect.centerx
             ship.rect.bottom = screen.rect.bottom
+            fire.rect.centerx = screen.rect.centerx
+            fire.rect.centery = screen.rect.bottom
         else:
             stats.game_active = False
             stats.boss_active = False
@@ -344,6 +363,7 @@ def blit_screen(stats):
     for ammo in settings.ammos:
         ammo.blitme()
     ship.blitme()
+    fire.blitme()
     for bullet in settings.bullets:
         bullet.blitme()
     for boss in settings.bosses:

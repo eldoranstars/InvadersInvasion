@@ -15,7 +15,8 @@ class Settings():
         self.record = 0
         self.boss_score = 4444
         self.ship_sf = 4
-        self.star_speedf = self.ship_sf - 1
+        self.fire_sf = self.ship_sf
+        self.star_sf = self.ship_sf - 1
         # Параметры экрана
         self.screen_width = 480
         self.screen_height = 720
@@ -31,6 +32,14 @@ class Settings():
         self.screen_bg = pygame.image.load(resource_path('media/space.png'))
         self.star_surface = pygame.image.load(resource_path('media/star.png'))
         self.ship_surface = pygame.image.load(resource_path('media/ship.png'))
+        self.fire1_surface = pygame.image.load(resource_path('media/fire1.png'))
+        self.fire2_surface = pygame.image.load(resource_path('media/fire2.png'))
+        self.fire3_surface = pygame.image.load(resource_path('media/fire3.png'))
+        self.fire4_surface = pygame.image.load(resource_path('media/fire4.png'))
+        self.fire5_surface = pygame.image.load(resource_path('media/fire5.png'))
+        self.fire6_surface = pygame.image.load(resource_path('media/fire6.png'))
+        self.fire_surfaces = [self.fire1_surface, self.fire2_surface, self.fire3_surface, \
+                                self.fire4_surface, self.fire5_surface, self.fire6_surface]
         self.weapon_ship_surface = pygame.image.load(resource_path('media/weapon-ship.png'))
         self.shield_ship_surface = pygame.image.load(resource_path('media/shield-ship.png'))
         self.alien_ball_surface = pygame.image.load(resource_path('media/alien-ball.png'))
