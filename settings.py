@@ -18,8 +18,8 @@ class Settings():
         self.fire_sf = self.ship_sf
         self.star_sf = self.ship_sf - 1
         # Параметры экрана
-        self.screen_width = 480
-        self.screen_height = 720
+        self.screen_width = 576
+        self.screen_height = 864
         self.screen_color = (100, 100, 100)
         # Параметры пули
         self.bullet_width = 3
