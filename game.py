@@ -11,16 +11,14 @@ stats = stats.GameStats()
 
 while True:
     clock.tick(60)
-    # if pygame.joystick.get_count():
-    #     joystick = pygame.joystick.Joystick(0)
-    gf.update_joystick()
-    gf.check_events(stats)
+    joystick = pygame.joystick.Joystick(0) if pygame.joystick.get_count() else ''
+    gf.check_events(stats, joystick)
     gf.blit_screen(stats)
     if stats.final_active and not stats.game_active:
         gf.update_final_text()
         gf.append_messages()
     if stats.game_active:
-        gf.update_ship(stats)
+        gf.update_ship(stats, joystick)
         gf.update_fire(stats)
         gf.update_bosses(stats)
         gf.update_invaders(stats)

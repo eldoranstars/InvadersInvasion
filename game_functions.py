@@ -26,7 +26,6 @@ record = Text(screen, "PREVIOS RECORD: {:,}", screen.rect.centerx, screen.rect.c
 score = Text(screen, "SCORE: {:,}", screen.rect.centerx, screen.rect.centery)
 buttons = [pause, record, score]
 collision = settings.collision
-joystick = ''
 
 def overlap(player, enemy):
     # Получаем пиксельную маску для обработки коллизий.
@@ -39,14 +38,8 @@ def collision_test(object, wm, hm):
     # Вывод коллизий на экран.
     screen.surface.blit(pygame.Surface((collision(object.rect, wm, hm).width,collision(object.rect, wm, hm).height)), collision(object.rect, wm, hm))
 
-def update_joystick():
-    if pygame.joystick.get_count():
-        joystick = pygame.joystick.Joystick(0)
-    else:
-        joystick = ''
-
-def check_events(stats):
-    # Отслеживание событий клавиатуры и мыши.
+def check_events(stats, joystick):
+    # Отслеживание нажатий клавиатуры и джойстика.
     if stats.game_active:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_q:
@@ -96,8 +89,8 @@ def check_events(stats):
                         ship.surface = settings.ship_surface
                         settings.new_game()
 
-def update_ship(stats):
-    # Отслеживание нажатий клавиатуры и мыши.
+def update_ship(stats, joystick):
+    # Отслеживание нажатий клавиатуры и джойстика.
     key = pygame.key.get_pressed()
     if key[pygame.K_RIGHT] == 1 and ship.rect.right < settings.screen_width:
         ship.rect.centerx += settings.ship_sf
