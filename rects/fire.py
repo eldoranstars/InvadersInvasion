@@ -17,7 +17,7 @@ class Fire():
         # Обновление координат изображения
         self.animation_reload += 1
         if self.animation_reload > 6:
-            self.surface = self.settings.fire_surfaces[random.randrange(0,5)]
+            self.surface = random.choice(self.settings.fire_surfaces)
             self.animation_reload = 0
 
     def blitme(self):
