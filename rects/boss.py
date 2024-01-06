@@ -27,7 +27,7 @@ class Boss():
         if self.move_direction == 1:
             self.move_left = False        
         # Загрузка изображения и получение прямоугольника
-        self.surface = settings.boss_surface
+        self.surface = settings.boss100_surface
         self.rect = self.surface.get_rect()
         # Получение изначальных координат изображения
         self.rect.centerx = random.randrange(self.rect.width, settings.screen_width, self.rect.width)
@@ -37,7 +37,9 @@ class Boss():
         # Обновление координат изображения
         if self.speed_factor <= self.settings.boss_sf:
             self.speed_factor += 0.001
-        if self.life_left < self.life_limit * 0.25:
+        if self.life_left < 0:
+            self.surface = self.settings.boss00_surface
+        elif self.life_left < self.life_limit * 0.25:
             self.surface = self.settings.boss25_surface
         elif self.life_left < self.life_limit * 0.5:
             self.surface = self.settings.boss50_surface

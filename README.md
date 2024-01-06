@@ -9,7 +9,8 @@
 - все игровые ф-ции вынесены в game_functions.py;
 - все параметры вынесены в settings.py;
 - все настройки состояния вынесены в stats.py;
-- все остальные модули это шаблоны изображений.
+- все остальные модули это шаблоны изображений;
+- Python 3.8.10
 
 ##### xbox one control
 - Left Stick -- movement
@@ -28,6 +29,6 @@
 - esc -- quit while pause
 
 ##### compile linux
-    pyinstaller -F --add-data "media/*:media/" --add-data "rects/*:." --icon=favicon.ico game.py --name InvadersInvasion
+pyinstaller -F --add-data "media/*:media" --add-data "rects/*:." --icon=favicon.ico game.py --name InvadersInvasion
 ##### compile windows
-    pyinstaller -F --add-data "media\*;media\" --add-data "rects\*;." --icon=favicon.ico game.py --name InvadersInvasion
+pyinstaller -F --add-data "media\*;media" --add-data "rects\*;." --icon=favicon.ico game.py --name InvadersInvasion

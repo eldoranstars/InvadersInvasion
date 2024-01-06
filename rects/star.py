@@ -5,7 +5,7 @@ class Star():
         # Атрибуты класса
         self.screen = screen
         self.settings = settings
-        self.speed_factor = settings.star_speedf
+        self.speed_factor = settings.star_sf
         self.move_direction = random.randrange(0,9)
         # Загрузка изображения и получение прямоугольника
         self.surface = settings.star_surface

@@ -6,7 +6,6 @@ class Text():
         # Атрибуты класса
         self.screen = screen
         self.msg = msg
-        self.button_color = (150, 150, 255)
         self.text_color = (0, 0, 0)
         self.font = pygame.font.SysFont(None, 33)
         # Загрузка изображения и получение прямоугольника
